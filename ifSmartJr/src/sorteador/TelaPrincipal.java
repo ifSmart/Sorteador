@@ -61,10 +61,10 @@ public class TelaPrincipal extends JFrame {
 		JButton botaoPremiacao = new JButton("Realizar Premiação");
 		botaoPremiacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ArrayList <String> listaProcessamento = new ArrayList<String>();
-				ArrayList <String> listaAmostragem = new ArrayList<String>();
-				listaProcessamento = arquivo.getLista("lista_processamento.txt");
-				System.out.println(listaProcessamento);
+				ArrayList <String> listaPro = new ArrayList<String>();
+				ArrayList <String> listaAmo = new ArrayList<String>();
+				listaPro = arquivo.getLista("lista_processamento.txt");
+				listaAmo = arquivo.getLista("lista_amostragem.txt");
 			}
 		});
 		botaoPremiacao.setFont(new Font("Arial", Font.PLAIN, 11));

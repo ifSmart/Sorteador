@@ -21,8 +21,9 @@ public class Arquivo {
 	
 	public ArrayList <String> getLista(String diretorio,String nomeArquivo) {
 		ArrayList <String> lista = new ArrayList<String>();
+		diretorio += "\\Listas\\";
+		System.out.println(diretorio);
 		try {
-			System.out.println("Diretorio = "+diretorio+nomeArquivo);
 			BufferedReader leitor = new BufferedReader(new InputStreamReader(new FileInputStream(diretorio+nomeArquivo), "UTF-8"));
 			String linha;
 			linha = leitor.readLine();
