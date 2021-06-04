@@ -18,7 +18,7 @@ public class Arquivo {
 		this.setDiretorioAtual();
 	}
 	
-	public ArrayList <String> getLista(String diretorio, String nomeArquivo) {
+	public ArrayList <String> getLista(String diretorio,String nomeArquivo) {
 		ArrayList <String> lista = new ArrayList<String>();
 		try {
 			System.out.println("Diretorio = "+diretorio+nomeArquivo);
@@ -32,7 +32,7 @@ public class Arquivo {
 		} catch (Exception e) {
 			TelaLog telaLog = new TelaLog();
 			if (telaLog.erro("Erro!","O arquivo '"+nomeArquivo+"' não foi encontrado!")) {
-				if (telaLog.simNao("Atenção!", "Deseja selecionar o arquivo?") == 0) {
+				if (telaLog.simNao("Atenção!","Deseja selecionar o arquivo?") == 0) {
 					return this.getLista(this.dialogoSelecionarArquivo(nomeArquivo), nomeArquivo);
 				} else {
 					return null;
@@ -46,16 +46,57 @@ public class Arquivo {
 		return this.getLista(this.diretorioAtual, nomeArquivo);
 	}
 	
-	public void inserirNaLista(){
-		
+	public boolean[] inserirNaLista(String nomeC,String valorC,String CPF){
+		TelaLog telaLog = new TelaLog();
+		boolean[] vetOK = new boolean[3];
+		float valor;
+		// Validando o nome
+		nomeC = this.StringTrimAndUpper(nomeC);
+		if (this.emptyOrNull(nomeC)) {
+			telaLog.erro("Erro!","Nome do contribuinte não inserido!");
+			vetOK[0] = true;
+			return vetOK;
+		}
+		// Validando o valor contribuído
+		if (this.emptyOrNull(valorC)) {
+			telaLog.erro("Erro!","Valor contribuído não inserido!");
+			vetOK[1] = true;
+			return vetOK;
+		}
+		try {
+			valor = Float.parseFloat(this.StringTrimAndUpper(valorC.replace(",", ".")));
+		} catch (Exception e) {
+			telaLog.erro("Erro!","O valor contribuído não é numérico!");
+			vetOK[1] = true;
+			return vetOK;
+		}
+		// Validando o CPF
+		CPF = this.StringTrimAndUpper(CPF);
+		if (this.emptyOrNull(CPF)) {
+			telaLog.erro("Erro!","CPF do contribuinte não inserido!");
+			vetOK[2] = true;
+			return vetOK;
+		}
+		if (CPF.length() != 11) {
+			telaLog.erro("Erro!","CPF inserido não contém 11 dígitos!");
+			vetOK[2] = true;
+			return vetOK;
+		}
+		CPF = this.ajeitarCPF(CPF);
+		System.out.println(nomeC);
+		System.out.println(valor);
+		System.out.println(CPF);
+		return vetOK;
 	}
+	
+	
 	
 	public String ajeitarDiretorio(String diretorio) {
 		while (diretorio.contains("\\")){
-			diretorio = diretorio.replace("\\", "/");
+			diretorio = diretorio.replace("\\","/");
 		}	
 		while (diretorio.contains("/")){
-			diretorio = diretorio.replace("/", "\\" + "\\");
+			diretorio = diretorio.replace("/","\\"+"\\");
 		}
 		return diretorio;
 	}
@@ -84,5 +125,17 @@ public class Arquivo {
 	private String StringTrimAndUpper(String string) {
 		return string.trim().toUpperCase();
 	}
-
+	
+	private boolean emptyOrNull(String string) {
+		if (string.isEmpty() || string == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	private String ajeitarCPF(String CPF) {
+		CPF = CPF.substring(0,3)+"."+CPF.substring(3,6)+"."+CPF.substring(6,9)+"-"+CPF.substring(9);
+		return CPF;
+	}
+	
 }

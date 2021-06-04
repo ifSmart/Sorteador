@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class TelaCadastro extends JFrame {
@@ -56,7 +57,7 @@ public class TelaCadastro extends JFrame {
 		labelValor.setFont(new Font("Arial", Font.PLAIN, 11));
 		labelValor.setBounds(143, 138, 198, 20);
 		contentPane.add(labelValor);
-		
+
 		tfValor = new JTextField();
 		tfValor.setFont(new Font("Arial", Font.PLAIN, 11));
 		tfValor.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,6 +80,31 @@ public class TelaCadastro extends JFrame {
 		contentPane.add(tfCPF);
 		
 		JButton botaoCadastrar = new JButton("Cadastrar");
+		botaoCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Arquivo arquivo = new Arquivo();
+				boolean[] vetOK = arquivo.inserirNaLista(tfNome.getText(),tfValor.getText(),tfCPF.getText());
+				if (vetOK[0]) {
+					tfNome.setText("");
+					tfNome.requestFocus();
+				}
+				if (vetOK[1]) {
+					tfValor.setText("");
+					tfValor.requestFocus();
+				}
+				if (vetOK[2]) {
+					tfCPF.setText("");
+					tfCPF.requestFocus();
+				}
+				if (!(vetOK[0] || vetOK[1] || vetOK[2])) {
+					tfNome.setText("");
+					tfValor.setText("");
+					tfCPF.setText("");
+					tfNome.requestFocus();
+				}
+				
+			}
+		});
 		botaoCadastrar.setBackground(Color.WHITE);
 		botaoCadastrar.setFont(new Font("Arial", Font.PLAIN, 11));
 		botaoCadastrar.setBounds(197, 273, 89, 23);

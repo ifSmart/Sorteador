@@ -20,6 +20,13 @@ public class TelaLog {
 		return true;
 	}
 	
+	public boolean info(String titulo, String log) {
+		Object[] options = {"OK"};
+		JOptionPane.showOptionDialog(frame, log, titulo, JOptionPane.INFORMATION_MESSAGE,
+				JOptionPane.INFORMATION_MESSAGE,null, options, null);
+		return true;
+	}
+	
 	
 	
 }

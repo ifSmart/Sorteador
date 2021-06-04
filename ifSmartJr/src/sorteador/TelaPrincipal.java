@@ -58,7 +58,7 @@ public class TelaPrincipal extends JFrame {
 		botaoCadastrar.setBounds(109, 92, 165, 23);
 		getContentPane().add(botaoCadastrar);
 		
-		JButton botaoPremiacao = new JButton("Realizar Premia\u00E7\u00E3o");
+		JButton botaoPremiacao = new JButton("Realizar Premiação");
 		botaoPremiacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList <String> listaProcessamento = new ArrayList<String>();
