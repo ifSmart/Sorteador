@@ -8,7 +8,7 @@ public class TelaLog {
 	private Frame frame = null;
 	
 	public int simNao(String titulo, String log) {
-		Object[] options = {"Sim","Não"};
+		Object[] options = {"Sim","NÃ£o"};
 		return JOptionPane.showOptionDialog(frame, log, titulo, JOptionPane.INFORMATION_MESSAGE,
 				JOptionPane.INFORMATION_MESSAGE,null, options, null);
 	}

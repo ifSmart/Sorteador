@@ -31,8 +31,8 @@ public class Arquivo {
 			}
 		} catch (Exception e) {
 			TelaLog telaLog = new TelaLog();
-			if (telaLog.erro("Erro!","O arquivo '"+nomeArquivo+"' n„o foi encontrado!")) {
-				if (telaLog.simNao("AtenÁ„o!", "Deseja selecionar o arquivo?") == 0) {
+			if (telaLog.erro("Erro!","O arquivo '"+nomeArquivo+"' n√£o foi encontrado!")) {
+				if (telaLog.simNao("Aten√ß√£o!", "Deseja selecionar o arquivo?") == 0) {
 					return this.getLista(this.dialogoSelecionarArquivo(nomeArquivo), nomeArquivo);
 				} else {
 					return null;

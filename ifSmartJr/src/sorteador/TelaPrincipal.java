@@ -31,21 +31,21 @@ public class TelaPrincipal extends JFrame {
 	public TelaPrincipal () {
 		Arquivo arquivo = new Arquivo();
 		getContentPane().setFont(new Font("Arial", Font.PLAIN, 11));
-		setTitle("Premiação ifSmartJr.");
+		setTitle("Sorteador - ifSmartJr.");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 350);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JLabel textoSorteio = new JLabel("Premiação ifSmartJr.");
+		JLabel textoSorteio = new JLabel("Sorteador - ifSmartJr.");
 		textoSorteio.setBounds(10, 33, 364, 48);
 		textoSorteio.setFont(new Font("Arial", Font.PLAIN, 15));
 		textoSorteio.setHorizontalTextPosition(SwingConstants.CENTER);
 		textoSorteio.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(textoSorteio);
 		
-		JButton botaoCadastrar = new JButton("Cadastrar Contribui\u00E7\u00F5es");
+		JButton botaoCadastrar = new JButton("Cadastrar ContribuiÃ§Ãµes");
 		botaoCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaCadastro telaCadastro = new TelaCadastro();

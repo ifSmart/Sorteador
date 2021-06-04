@@ -21,7 +21,7 @@ public class TelaCadastro extends JFrame {
 	private JTextField tfCPF;
 
 	public TelaCadastro() {
-		setTitle("Cadastrar Contribui\u00E7\u00F5es");
+		setTitle("Cadastrar Contribuições");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
@@ -29,7 +29,7 @@ public class TelaCadastro extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel labelTitulo = new JLabel("Cadastrar Contribui\u00E7\u00F5es");
+		JLabel labelTitulo = new JLabel("Cadastrar Contribuições");
 		labelTitulo.setFont(new Font("Arial", Font.PLAIN, 20));
 		labelTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitulo.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -50,7 +50,7 @@ public class TelaCadastro extends JFrame {
 		labelNome.setBounds(143, 76, 198, 20);
 		contentPane.add(labelNome);
 		
-		JLabel labelValor = new JLabel("Valor Contribu\u00EDdo:");
+		JLabel labelValor = new JLabel("Valor Contribuído:");
 		labelValor.setHorizontalTextPosition(SwingConstants.CENTER);
 		labelValor.setHorizontalAlignment(SwingConstants.CENTER);
 		labelValor.setFont(new Font("Arial", Font.PLAIN, 11));
