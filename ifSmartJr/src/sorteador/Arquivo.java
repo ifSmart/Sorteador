@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 
 public class Arquivo {
@@ -25,7 +26,7 @@ public class Arquivo {
 			BufferedReader leitor = new BufferedReader(new InputStreamReader(new FileInputStream(diretorio+nomeArquivo), "UTF-8"));
 			String linha;
 			linha = leitor.readLine();
-			while (!((linha == null) || (linha == ""))) {
+			while (!((linha == null) || (linha.isEmpty()))) {
 				lista.add(linha);
 				linha = leitor.readLine();
 			}
@@ -82,14 +83,40 @@ public class Arquivo {
 			vetOK[2] = true;
 			return vetOK;
 		}
+		try {
+			Double.parseDouble(CPF);
+		} catch (Exception e) {
+			telaLog.erro("Erro!","CPF inserido não é numérico!");
+			vetOK[2] = true;
+			return vetOK;
+		}
 		CPF = this.ajeitarCPF(CPF);
-		System.out.println(nomeC);
-		System.out.println(valor);
-		System.out.println(CPF);
+		
+		// Criando diretorio para as listas
+		
+		String diretorioListas = this.diretorioAtual+"Listas";
+		File diretorio = new File(this.diretorioAtual+"Listas");
+		diretorio.mkdir();
+		
+		try {
+			FileWriter fileListaPro = new FileWriter(diretorioListas+"\\"+"\\"+"lista_processamento.txt",true);
+			FileWriter fileListaAmo = new FileWriter(diretorioListas+"\\"+"\\"+"lista_amostragem.txt",true);
+			PrintWriter printListaPro = new PrintWriter(fileListaPro);
+			PrintWriter printListaAmo = new PrintWriter(fileListaAmo);
+			for(int ind = 0; ind < valor; ind+=5) {
+				printListaPro.printf("%s, %s\n",nomeC,CPF);
+			}
+			printListaPro.close();
+			long pontos = (long) valor/5;
+			printListaAmo.printf("NOME: %s, CPF: %s, VALOR CONTRIBUÍDO: R$ %.0f, PONTOS: %d\n"
+					,nomeC,this.mascararCPF(CPF),valor,pontos);
+			printListaAmo.close();
+		} catch (Exception e) {
+			return null;
+		}
+		telaLog.info("Sucesso!",nomeC+" cadastrado com sucesso!");
 		return vetOK;
 	}
-	
-	
 	
 	public String ajeitarDiretorio(String diretorio) {
 		while (diretorio.contains("\\")){
@@ -135,6 +162,11 @@ public class Arquivo {
 	
 	private String ajeitarCPF(String CPF) {
 		CPF = CPF.substring(0,3)+"."+CPF.substring(3,6)+"."+CPF.substring(6,9)+"-"+CPF.substring(9);
+		return CPF;
+	}
+	
+	private String mascararCPF(String CPF) {
+		CPF = "***."+CPF.substring(4,12)+"**";
 		return CPF;
 	}
 	
