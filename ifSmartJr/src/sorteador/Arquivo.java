@@ -21,8 +21,7 @@ public class Arquivo {
 	
 	public ArrayList <String> getLista(String diretorio,String nomeArquivo) {
 		ArrayList <String> lista = new ArrayList<String>();
-		diretorio += "\\Listas\\";
-		System.out.println(diretorio);
+		System.out.println(diretorio+nomeArquivo);
 		try {
 			BufferedReader leitor = new BufferedReader(new InputStreamReader(new FileInputStream(diretorio+nomeArquivo), "UTF-8"));
 			String linha;
@@ -45,10 +44,16 @@ public class Arquivo {
 	}
 	
 	public ArrayList <String> getLista(String nomeArquivo) {
-		return this.getLista(this.diretorioAtual, nomeArquivo);
+		return this.getLista(this.diretorioAtual+"Listas\\",nomeArquivo);
 	}
 	
-	public boolean[] inserirNaLista(String nomeC,String valorC,String CPF){
+	// Método que insere os dados na lista correspondente
+	
+	public boolean[] inserirNaLista(String nomeC,String valorC,String CPF,boolean ignorarTela){
+		
+		// O vetor 'vetOK' tem 3 posições e cada uma delas representa verdadeiro para caso
+		// seja necessário limpar a entrada de dados da tela 'TelaCadastro'
+		
 		TelaLog telaLog = new TelaLog();
 		boolean[] vetOK = new boolean[3];
 		float valor;
@@ -96,15 +101,17 @@ public class Arquivo {
 		// Criando diretorio para as listas
 		
 		String diretorioListas = this.diretorioAtual+"Listas";
-		File diretorio = new File(this.diretorioAtual+"Listas");
+		File diretorio = new File(diretorioListas);
 		diretorio.mkdir();
 		
+		// Escrevendo os dados na lista de processamento e de amostragem
+		
 		try {
-			FileWriter fileListaPro = new FileWriter(diretorioListas+"\\"+"\\"+"lista_processamento.txt",true);
-			FileWriter fileListaAmo = new FileWriter(diretorioListas+"\\"+"\\"+"lista_amostragem.txt",true);
+			FileWriter fileListaPro = new FileWriter(diretorioListas+"\\lista_processamento.txt",true);
+			FileWriter fileListaAmo = new FileWriter(diretorioListas+"\\lista_amostragem.txt",true);
 			PrintWriter printListaPro = new PrintWriter(fileListaPro);
 			PrintWriter printListaAmo = new PrintWriter(fileListaAmo);
-			for(int ind = 0; ind < valor; ind+=5) {
+			for(int ind = 0; ind < valor; ind += 5) {
 				printListaPro.printf("%s, %s\n",nomeC,CPF);
 			}
 			printListaPro.close();
@@ -115,23 +122,56 @@ public class Arquivo {
 		} catch (Exception e) {
 			return null;
 		}
-		telaLog.info("Sucesso!",nomeC+" cadastrado com sucesso!");
+		
+		// Verificando se a tela de informações precisa ser ignorada
+		
+		if (!ignorarTela) {
+			telaLog.info("Sucesso!",nomeC+" cadastrado com sucesso!");
+		}
 		return vetOK;
 	}
 	
-	public String ajeitarDiretorio(String diretorio) {
-		while (diretorio.contains("\\")){
-			diretorio = diretorio.replace("\\","/");
-		}	
-		while (diretorio.contains("/")){
-			diretorio = diretorio.replace("/","\\"+"\\");
-		}
-		return diretorio;
+	// (Sobrecarga) O método faz com que uma tela de informações seja mostrada a cada cadastro
+	
+	public boolean[] inserirNaLista(String nomeC,String valorC,String CPF){
+		return this.inserirNaLista(nomeC, valorC, CPF, false);
 	}
 	
-	private void setDiretorioAtual() {
-		this.diretorioAtual = this.ajeitarDiretorio(System.getProperty("user.dir"))+"\\"+"\\";
+	// Método que faz o cadastro dos contribuintes lendo um arquivo .csv do Google Forms
+	
+	public boolean inserirNaListaCSV() {
+		ArrayList <String> listaCSV = new ArrayList<String>();
+		listaCSV = this.getLista("lista_processamento_csv.csv");
+		TelaLog telaLog = new TelaLog();
+		try {
+			for (int ind = 1; ind < listaCSV.size(); ind++) {
+				String[] itemLista = (listaCSV.get(ind)).split(",");
+				String nome = itemLista[1];
+				nome = nome.substring(1,nome.length()-1);
+				String CPF = itemLista[2];
+				CPF = CPF.substring(1,CPF.length()-1);
+				String valor = itemLista[8];
+				valor = valor.substring(4,valor.indexOf("(")-1);
+				this.inserirNaLista(nome,valor,CPF,true);
+				System.out.println(nome);
+				System.out.println(valor);
+				System.out.println(CPF);
+			}
+			telaLog.info("Sucesso!", "Lista CSV importada e processada com sucesso!");
+			return true;
+		} catch (Exception e) {
+			telaLog.erro("Erro!", "Falha na operação!");
+			return false;
+		}
 	}
+	
+	// Método invocado pela classe quando instanciada que seta o diretório atual
+	
+	private void setDiretorioAtual() {
+		this.diretorioAtual = System.getProperty("user.dir")+"\\";
+	}
+	
+	// Método que invoca uma tela para selecionar o diretório com o arquivo desejado
 	
 	public String dialogoSelecionarArquivo(String nomeArquivo) {
 		Frame frame = null;
@@ -140,19 +180,16 @@ public class Arquivo {
 		frameDialog.setFile("*"+nomeArquivo);
 		frameDialog.setVisible(true);
 		String diretorio = frameDialog.getDirectory();
-		if (!(diretorio == null)) {
-			diretorio = this.ajeitarDiretorio(diretorio);
-		}
 		return diretorio;
 	}
 	
-	public String getDiretorioAtual() {
-		return this.diretorioAtual;
-	}
+	// Método que retorna uma string em maiúsculo e sem espaços vazios
 	
 	private String StringTrimAndUpper(String string) {
 		return string.trim().toUpperCase();
 	}
+	
+	// Método que retorna verdadeiro se uma string for nula ou vazia
 	
 	private boolean emptyOrNull(String string) {
 		if (string.isEmpty() || string == null) {
@@ -161,10 +198,14 @@ public class Arquivo {
 		return false;
 	}
 	
+	// Método que coloca os caracteres do CPF
+	
 	private String ajeitarCPF(String CPF) {
 		CPF = CPF.substring(0,3)+"."+CPF.substring(3,6)+"."+CPF.substring(6,9)+"-"+CPF.substring(9);
 		return CPF;
 	}
+	
+	// Método que mascara o CPF escondendo os 3 primeiros e 2 últimos dígitos
 	
 	private String mascararCPF(String CPF) {
 		CPF = "***."+CPF.substring(4,12)+"**";

@@ -45,18 +45,18 @@ public class TelaPrincipal extends JFrame {
 		textoSorteio.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(textoSorteio);
 		
-		JButton botaoCadastrar = new JButton("Cadastrar Contribuições");
-		botaoCadastrar.addActionListener(new ActionListener() {
+		JButton botaoCadastro = new JButton("Realizar Cadastro");
+		botaoCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaCadastro telaCadastro = new TelaCadastro();
 				telaCadastro.setVisible(true);
 			}
 		});
-		botaoCadastrar.setFocusPainted(false);
-		botaoCadastrar.setBackground(Color.WHITE);
-		botaoCadastrar.setFont(new Font("Arial", Font.PLAIN, 11));
-		botaoCadastrar.setBounds(109, 92, 165, 23);
-		getContentPane().add(botaoCadastrar);
+		botaoCadastro.setFocusPainted(false);
+		botaoCadastro.setBackground(Color.WHITE);
+		botaoCadastro.setFont(new Font("Arial", Font.PLAIN, 11));
+		botaoCadastro.setBounds(109, 92, 165, 23);
+		getContentPane().add(botaoCadastro);
 		
 		JButton botaoPremiacao = new JButton("Realizar Premiação");
 		botaoPremiacao.addActionListener(new ActionListener() {
@@ -69,20 +69,19 @@ public class TelaPrincipal extends JFrame {
 		});
 		botaoPremiacao.setFont(new Font("Arial", Font.PLAIN, 11));
 		botaoPremiacao.setBackground(Color.WHITE);
-		botaoPremiacao.setBounds(109, 126, 165, 23);
+		botaoPremiacao.setBounds(109, 156, 165, 23);
 		getContentPane().add(botaoPremiacao);
 		
-		JButton botaoListaInscritos = new JButton("Gerar Lista de Inscritos");
-		botaoListaInscritos.addActionListener(new ActionListener() {
+		JButton botaoCadastroCSV = new JButton("Realizar Cadastro (CSV)");
+		botaoCadastroCSV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Arquivo arquivo = new Arquivo();
-				System.out.println(arquivo.getDiretorioAtual());
+				arquivo.inserirNaListaCSV();
 			}
 		});
-		botaoListaInscritos.setFont(new Font("Arial", Font.PLAIN, 11));
-		botaoListaInscritos.setBackground(Color.WHITE);
-		botaoListaInscritos.setBounds(109, 160, 165, 23);
-		getContentPane().add(botaoListaInscritos);
+		botaoCadastroCSV.setFont(new Font("Arial", Font.PLAIN, 11));
+		botaoCadastroCSV.setBackground(Color.WHITE);
+		botaoCadastroCSV.setBounds(109, 122, 165, 23);
+		getContentPane().add(botaoCadastroCSV);
 		
 		JButton botaoSair = new JButton("Sair");
 		botaoSair.addActionListener(new ActionListener() {
