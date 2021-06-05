@@ -21,7 +21,6 @@ public class Arquivo {
 	
 	public ArrayList <String> getLista(String diretorio,String nomeArquivo) {
 		ArrayList <String> lista = new ArrayList<String>();
-		System.out.println(diretorio+nomeArquivo);
 		try {
 			BufferedReader leitor = new BufferedReader(new InputStreamReader(new FileInputStream(diretorio+nomeArquivo), "UTF-8"));
 			String linha;
@@ -153,9 +152,6 @@ public class Arquivo {
 				String valor = itemLista[8];
 				valor = valor.substring(4,valor.indexOf("(")-1);
 				this.inserirNaLista(nome,valor,CPF,true);
-				System.out.println(nome);
-				System.out.println(valor);
-				System.out.println(CPF);
 			}
 			telaLog.info("Sucesso!", "Lista CSV importada e processada com sucesso!");
 			return true;
@@ -163,6 +159,12 @@ public class Arquivo {
 			telaLog.erro("Erro!", "Falha na operação!");
 			return false;
 		}
+	}
+	
+	// Método que retorna o diretório atual
+	
+	public String getDiretorioAtual() {
+		return this.diretorioAtual;
 	}
 	
 	// Método invocado pela classe quando instanciada que seta o diretório atual
@@ -207,7 +209,7 @@ public class Arquivo {
 	
 	// Método que mascara o CPF escondendo os 3 primeiros e 2 últimos dígitos
 	
-	private String mascararCPF(String CPF) {
+	public String mascararCPF(String CPF) {
 		CPF = "***."+CPF.substring(4,12)+"**";
 		return CPF;
 	}

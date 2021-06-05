@@ -102,7 +102,6 @@ public class TelaCadastro extends JFrame {
 					tfCPF.setText("");
 					tfNome.requestFocus();
 				}
-				
 			}
 		});
 		botaoCadastrar.setBackground(Color.WHITE);

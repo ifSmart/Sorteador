@@ -58,13 +58,25 @@ public class TelaPrincipal extends JFrame {
 		botaoCadastro.setBounds(109, 92, 165, 23);
 		getContentPane().add(botaoCadastro);
 		
-		JButton botaoPremiacao = new JButton("Realizar Premiação");
+		JButton botaoPremiacao = new JButton("Iniciar Premiação");
 		botaoPremiacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				TelaLog telaLog = new TelaLog();
 				ArrayList <String> listaPro = new ArrayList<String>();
 				ArrayList <String> listaAmo = new ArrayList<String>();
 				listaPro = arquivo.getLista("lista_processamento.txt");
 				listaAmo = arquivo.getLista("lista_amostragem.txt");
+				if (listaPro.isEmpty() || listaPro == null) {
+					telaLog.erro("Erro!","A lista de processamento está vazia!");
+				} else {
+					if (listaAmo.isEmpty() || listaPro == null) {
+						telaLog.erro("Erro!","A lista de amostragem está vazia!");
+					} else {
+						TelaSorteio telaSorteio = new TelaSorteio(listaPro,listaAmo);
+						telaSorteio.setVisible(true);
+					}
+					
+				}
 			}
 		});
 		botaoPremiacao.setFont(new Font("Arial", Font.PLAIN, 11));
