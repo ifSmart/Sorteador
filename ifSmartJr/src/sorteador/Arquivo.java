@@ -3,13 +3,17 @@ package sorteador;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public class Arquivo {
 	
@@ -106,10 +110,10 @@ public class Arquivo {
 		// Escrevendo os dados na lista de processamento e de amostragem
 		
 		try {
-			FileWriter fileListaPro = new FileWriter(diretorioListas+"\\lista_processamento.txt",true);
-			FileWriter fileListaAmo = new FileWriter(diretorioListas+"\\lista_amostragem.txt",true);
-			PrintWriter printListaPro = new PrintWriter(fileListaPro);
-			PrintWriter printListaAmo = new PrintWriter(fileListaAmo);
+			
+			PrintWriter printListaPro = new PrintWriter(new OutputStreamWriter(new FileOutputStream(diretorioListas+"\\lista_processamento.txt",true),"UTF-8"));
+			PrintWriter printListaAmo = new PrintWriter(new OutputStreamWriter(new FileOutputStream(diretorioListas+"\\lista_amostragem.txt",true),"UTF-8"));
+			
 			for(int ind = 0; ind < valor; ind += 5) {
 				printListaPro.printf("%s, %s\n",nomeC,CPF);
 			}

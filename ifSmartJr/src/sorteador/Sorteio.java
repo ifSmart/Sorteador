@@ -1,8 +1,10 @@
 package sorteador;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -75,8 +77,9 @@ public class Sorteio {
 		file.mkdir();
 		
 		try {
-			FileWriter arquivoVencedores = new FileWriter(diretorio+"vencedores.txt");
-			PrintWriter listaVencedores = new PrintWriter(arquivoVencedores);
+			
+			PrintWriter listaVencedores = new PrintWriter(new OutputStreamWriter(new FileOutputStream(diretorio+"vencedores.txt"),"UTF-8"));
+			
 			listaVencedores.printf("DATA E HORA DA PREMIAÇÃO: "+this.retornarDataHora()+"\n\n");
 			listaVencedores.printf(logVencedor+"\n"+logSegundoLugar+"\n"+logTerceiroLugar+"\n\n");
 			listaVencedores.printf("© 2021 - Desenvolvido pela ifSmartJr.");
