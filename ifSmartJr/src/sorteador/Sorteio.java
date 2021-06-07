@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Calendar;
 
-public class Sorteio {
+public class Sorteio extends Arquivo {
 	
 	private Random random = new Random();
 	private float totalArrecadado;
@@ -72,21 +72,21 @@ public class Sorteio {
 		
 		// Salvando os dados dos vencedores
 		
-		String diretorio = arquivo.getDiretorioAtual()+"\\Vencedores\\";
-		File file = new File(diretorio);
-		file.mkdir();
+		String diretorio = this.getDiretorioAtual()+"Vencedores\\";
 		
+		String dataHora;
 		try {
-			
-			PrintWriter listaVencedores = new PrintWriter(new OutputStreamWriter(new FileOutputStream(diretorio+"vencedores.txt"),"UTF-8"));
-			
-			listaVencedores.printf("DATA E HORA DA PREMIAÇÃO: "+this.retornarDataHora()+"\n\n");
+			PrintWriter listaVencedores = new PrintWriter(this.criarOutputStreamWriter(diretorio,"vencedores.txt",false));
+			dataHora = this.retornarDataHora();
+			listaVencedores.printf("DATA E HORA DA PREMIAÇÃO: "+dataHora+"\n\n");
 			listaVencedores.printf(logVencedor+"\n"+logSegundoLugar+"\n"+logTerceiroLugar+"\n\n");
 			listaVencedores.printf("© 2021 - Desenvolvido pela ifSmartJr.");
 			listaVencedores.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return null;
 		}
+		ArquivoHTML html = new ArquivoHTML();
+		html.gerarHTMLVencedores(logVencedor, logSegundoLugar, logTerceiroLugar, dataHora);
 		return logVencedor+"\n"+logSegundoLugar+"\n"+logTerceiroLugar;
 	}
 	
@@ -101,17 +101,6 @@ public class Sorteio {
 	
 	// Retorna em uma String a data e a hora correspondente
 	
-	private String retornarDataHora() {
-		Calendar dataHora = Calendar.getInstance();
-		int ano, mes, dia, hora, minuto, segundo;
-		ano = dataHora.get(Calendar.YEAR);
-		mes = dataHora.get(Calendar.MONTH) + 1;
-		dia = dataHora.get(Calendar.DAY_OF_MONTH);
-		hora = dataHora.get(Calendar.HOUR_OF_DAY);
-		minuto = dataHora.get(Calendar.MINUTE);
-		segundo = dataHora.get(Calendar.SECOND);
-		return String.format("%02d/%02d/%04d - %02d:%02d:%02d",dia,mes,ano,hora,minuto,segundo);
-	}
 	
 	public void contarTotalArrecadado(String linha) {
 		String[] vetorAtributos = linha.split(",");

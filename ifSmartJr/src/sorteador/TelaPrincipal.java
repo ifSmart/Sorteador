@@ -73,6 +73,8 @@ public class TelaPrincipal extends JFrame {
 						telaLog.erro("Erro!","A lista de amostragem está vazia!");
 					} else {
 						TelaSorteio telaSorteio = new TelaSorteio(listaPro,listaAmo);
+						ArquivoHTML html = new ArquivoHTML();
+						html.gerarHTMLAmostragem(listaAmo);
 						telaSorteio.setVisible(true);
 					}
 					
@@ -112,7 +114,7 @@ public class TelaPrincipal extends JFrame {
 		lblNewLabel.setBounds(10, 286, 364, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JButton botaoSobre = new JButton("Notas e Informa\u00E7\u00F5es");
+		JButton botaoSobre = new JButton("Notas e Informações");
 		botaoSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaLog telaLog = new TelaLog();

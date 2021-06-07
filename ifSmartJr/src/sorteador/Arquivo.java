@@ -1,11 +1,13 @@
 package sorteador;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.awt.FileDialog;
 import java.awt.Frame;
@@ -13,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 public class Arquivo {
@@ -103,16 +106,14 @@ public class Arquivo {
 		
 		// Criando diretorio para as listas
 		
-		String diretorioListas = this.diretorioAtual+"Listas";
-		File diretorio = new File(diretorioListas);
-		diretorio.mkdir();
+		String diretorioListas = this.diretorioAtual+"Listas\\";
 		
 		// Escrevendo os dados na lista de processamento e de amostragem
 		
 		try {
 			
-			PrintWriter printListaPro = new PrintWriter(new OutputStreamWriter(new FileOutputStream(diretorioListas+"\\lista_processamento.txt",true),"UTF-8"));
-			PrintWriter printListaAmo = new PrintWriter(new OutputStreamWriter(new FileOutputStream(diretorioListas+"\\lista_amostragem.txt",true),"UTF-8"));
+			PrintWriter printListaPro = new PrintWriter(this.criarOutputStreamWriter(diretorioListas,"lista_processamento.txt",true));
+			PrintWriter printListaAmo = new PrintWriter(this.criarOutputStreamWriter(diretorioListas,"lista_amostragem.txt",true));
 			
 			for(int ind = 0; ind < valor; ind += 5) {
 				printListaPro.printf("%s, %s\n",nomeC,CPF);
@@ -138,6 +139,18 @@ public class Arquivo {
 	
 	public boolean[] inserirNaLista(String nomeC,String valorC,String CPF){
 		return this.inserirNaLista(nomeC, valorC, CPF, false);
+	}
+	
+	// Método cria diretório e retorna um OutputStreamWriter em UTF-8
+	
+	public OutputStreamWriter criarOutputStreamWriter(String diretorio,String nomeArquivo,boolean subescrever) {
+		try {
+			File file = new File(diretorio);
+			file.mkdir();
+			return new OutputStreamWriter(new FileOutputStream(diretorio+nomeArquivo,subescrever),"UTF-8");
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	// Método que faz o cadastro dos contribuintes lendo um arquivo .csv do Google Forms
@@ -216,6 +229,18 @@ public class Arquivo {
 	public String mascararCPF(String CPF) {
 		CPF = "***."+CPF.substring(4,12)+"**";
 		return CPF;
+	}
+	
+	public String retornarDataHora() {
+		Calendar dataHora = Calendar.getInstance();
+		int ano, mes, dia, hora, minuto, segundo;
+		ano = dataHora.get(Calendar.YEAR);
+		mes = dataHora.get(Calendar.MONTH) + 1;
+		dia = dataHora.get(Calendar.DAY_OF_MONTH);
+		hora = dataHora.get(Calendar.HOUR_OF_DAY);
+		minuto = dataHora.get(Calendar.MINUTE);
+		segundo = dataHora.get(Calendar.SECOND);
+		return String.format("%02d/%02d/%04d - %02d:%02d:%02d",dia,mes,ano,hora,minuto,segundo);
 	}
 	
 }
