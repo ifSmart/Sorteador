@@ -40,7 +40,11 @@ Seguindo o mesmo exemplo, a lista ficará da seguinte forma:
 
 -> Iniciar Premiação
 
-- Essa opção inicia a premiação, lendo as duas listas e apresentando a lista de processamento na tela. A leitura das listas é realizada pela classe *Arquivo.java* através do método *.getLista(<Nome da Lista>)* e retorna um *ArrayList <String>* com cada posição preenchida correspondente às posições da lista. Em diante, o sorteio é realizado através da classe *Sorteio.java* através do método *.Sortear(<ArrayList> <String>);*
+- Essa opção inicia a premiação, lendo as duas listas e apresentando a lista de processamento na tela. A leitura das listas é realizada pela classe *Arquivo.java* através do método *.getLista(<Nome da Lista>)* e retorna um *ArrayList <String>* com cada posição preenchida correspondente às posições da lista.
+Em diante, o sorteio é realizado através da classe *Sorteio.java* através do método *.Sortear(<ArrayList> <String>);*. Toda a lógica matemática está presente nessa classe.
+Ao final do sorteio, uma mensagem com as informações dos vencedores é informada na tela.
+As mesmas informações são impressas em um arquivo chamado *vencedores.txt* dentro de uma pasta criada chamada *Vencedores* dentro do diretório da pasta raíz em que o programa está sendo executado.
+
 
 -> Notas e Informações
 

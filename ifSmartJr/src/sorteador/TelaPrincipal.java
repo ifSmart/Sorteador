@@ -113,6 +113,18 @@ public class TelaPrincipal extends JFrame {
 		getContentPane().add(lblNewLabel);
 		
 		JButton botaoSobre = new JButton("Notas e Informa\u00E7\u00F5es");
+		botaoSobre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaLog telaLog = new TelaLog();
+				telaLog.info("Notas e Informações","Coordenação do Projeto: Aloísio Nunes da Mota Filho.\n\n"
+						+ "Desenvolvimento: Aloísio Nunes da Mota Filho,\n"
+						+ "Raphael Rodrigues de Sena,\n"
+						+ "Ian da Silva Conceição,\n"
+						+ "Narciso Francisco de Oliveira.\n\n"
+						+ "Demais informações, acesse Github.com/ifSmart/sorteador\n\n"
+						+ "© 2021 - Desenvolvido pela ifSmartJr");
+			}
+		});
 		botaoSobre.setFont(new Font("Arial", Font.PLAIN, 11));
 		botaoSobre.setBackground(Color.WHITE);
 		botaoSobre.setBounds(109, 190, 165, 23);
