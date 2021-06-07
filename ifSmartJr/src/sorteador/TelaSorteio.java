@@ -21,8 +21,12 @@ import java.awt.event.ActionEvent;
 public class TelaSorteio extends JFrame {
 
 	private JPanel contentPane;
+	private float valorTotal;
 
 	public TelaSorteio(ArrayList <String> listaPro,ArrayList <String> listaAmo) {
+		
+		Sorteio sorteio = new Sorteio();
+		
 		setTitle("Realizar Premiação");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,10 +49,13 @@ public class TelaSorteio extends JFrame {
 		taLog.setBounds(10, 70, 574, 231);
 		contentPane.add(taLog);
 		for (int ind = 0; ind < listaAmo.size(); ind++) {
-			taLog.append(listaAmo.get(ind)+"\n");
+			String linha = listaAmo.get(ind);
+			sorteio.contarTotalArrecadado(linha);
+			taLog.append(linha+"\n");
 		}
 		taLog.append("\n");
-		taLog.append("TOTAL DE PESSOAS: "+String.valueOf(listaAmo.size()));
+		taLog.append("TOTAL DE PESSOAS: "+String.valueOf(listaAmo.size())+"\n");
+		taLog.append("TOTAL ARRECADADO: R$ "+String.format("%.2f",sorteio.retornarTotalArrecadado()));
 		
 		JLabel labelLista = new JLabel("Lista dos Contribuintes");
 		labelLista.setHorizontalAlignment(SwingConstants.CENTER);
@@ -59,7 +66,6 @@ public class TelaSorteio extends JFrame {
 		JButton botaoPremiacao = new JButton("Realizar Premiação");
 		botaoPremiacao.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent arg0) {
-				Sorteio sorteio = new Sorteio();
 				String logSorteio = sorteio.sortear(listaPro);
 				taLog.append("\n\n"+logSorteio);
 			}

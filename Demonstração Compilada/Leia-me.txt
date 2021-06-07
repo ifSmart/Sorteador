@@ -1,0 +1,7 @@
+- A aplicação necessita do JRE (Java) instalado em sua máquina (https://www.java.com/pt-BR/download/)
+- Abra a aplicação Sorteador.jar (inicia automaticamente caso o Java esteja instalado na sua máquina)
+- Para uma rápida demonstração, clique no botão "Realizar Cadastro (CSV)". O sistema irá buscar na pasta
+Listas o arquivo "lista_processamento_csv.csv" e processá-la.
+- Após clique em "Iniciar Sorteio"
+- Você também pode cadastrar um a um usando o botão "Realizar Cadastro"
+- Siga os seguintes passos na tela

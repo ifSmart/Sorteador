@@ -15,7 +15,7 @@ import java.util.Calendar;
 public class Sorteio {
 	
 	private Random random = new Random();
-	
+	private float totalArrecadado;
 	// Método que realiza o sorteio
 	
 	public String sortear(ArrayList <String> listaPro) {
@@ -101,7 +101,7 @@ public class Sorteio {
 	
 	// Retorna em uma String a data e a hora correspondente
 	
-	public String retornarDataHora() {
+	private String retornarDataHora() {
 		Calendar dataHora = Calendar.getInstance();
 		int ano, mes, dia, hora, minuto, segundo;
 		ano = dataHora.get(Calendar.YEAR);
@@ -111,6 +111,17 @@ public class Sorteio {
 		minuto = dataHora.get(Calendar.MINUTE);
 		segundo = dataHora.get(Calendar.SECOND);
 		return String.format("%02d/%02d/%04d - %02d:%02d:%02d",dia,mes,ano,hora,minuto,segundo);
+	}
+	
+	public void contarTotalArrecadado(String linha) {
+		String[] vetorAtributos = linha.split(",");
+		String stringValor = vetorAtributos[2];
+		stringValor = stringValor.substring(stringValor.indexOf("$")+2).trim();
+		this.totalArrecadado += Float.parseFloat(stringValor);
+	}
+	
+	public float retornarTotalArrecadado() {
+		return this.totalArrecadado;
 	}
 
 }

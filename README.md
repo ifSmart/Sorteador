@@ -3,6 +3,10 @@ Software sorteador da premiação da arrecadação beneficente da ifSmartJr. par
 
 Para compilar, use a classe *TelaPrincipal.java* que possui o método *public static void main*.
 
+A aplicação foi desenvolvida em JavaSE versão 1.8.
+
+Para uma demonstração rápida, acesse a pasta *Demonstração Compilada* e executa o arquivo *Sorteador.jar*.
+
 O software salva os dados dos contribuintes em arquivos e faz o sorteio do vencedor.
 
 Funcionamento do software:
@@ -21,14 +25,14 @@ A tela principal contém 5 opções:
 
 Exemplo: Fulano de tal contribuiu com R$ 10, logo a lista ficará da seguinte forma:
 
-*FULANO DE TAL, 123.456.789-45*
-*FULANO DE TAL, 123.456.789-45*
+*FULANO DE TAL, 123.456.789-45*.
+*FULANO DE TAL, 123.456.789-45*.
 
 - Na lista de amostragem são mostrados os dados de uma forma mais apresentável, já que essa lista será usada para o público, com o CPF sendo mascarado.
 
 Seguindo o mesmo exemplo, a lista ficará da seguinte forma:
 
-*NOME: FULANO DE TAL, CPF: ###.456.789-##, VALOR CONTRIBUÍDO: R$ 10, PONTOS: 2*
+*NOME: FULANO DE TAL, CPF: ###.456.789-##, VALOR CONTRIBUÍDO: R$ 10, PONTOS: 2*.
 
 -> Realizar Cadastro (CSV)
 
@@ -48,7 +52,7 @@ Seguindo o mesmo exemplo, a lista ficará da seguinte forma:
 
 © 2021 - Desenvolvido pela ifSmartJr.
 
-Diretoria de Projetos.
+Diretoria de Projetos
 
 Aloísio Nunes da Mota Filho, Diretor de Projetos.
 Raphael Rodrigues de Sena, Suplente.
